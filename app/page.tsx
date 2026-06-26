@@ -27,7 +27,8 @@ import {
   ClipboardList,
   Search,
   FileCheck,
-  ChevronRight
+  ChevronRight,
+  FileText
 } from 'lucide-react'
 
 function useCounter(target: number, duration = 2000) {
@@ -53,13 +54,28 @@ function useCounter(target: number, duration = 2000) {
   return { count, ref }
 }
 
-function Counter({ target, suffix = '', label, icon: Icon }: { target: number; suffix?: string; label: string; icon: React.ComponentType<{ size?: number; className?: string }> }) {
+function Counter({
+  target,
+  suffix = '',
+  label,
+  icon: Icon
+}: {
+  target: number
+  suffix?: string
+  label: string
+  icon: React.ElementType
+}) {
   const { count, ref } = useCounter(target)
+
   return (
     <div ref={ref} className="glass-card text-center py-10 px-6 flex flex-col items-center">
-      <Icon size={32} className="text-[#D4A017] mb-4" />
-      <div className="font-serif font-black text-5xl leading-none grad-text mb-3">{count.toLocaleString()}{suffix}</div>
-      <div className="text-[11.5px] uppercase tracking-widest font-bold" style={{ color: 'var(--tm)' }}>{label}</div>
+      <Icon className="text-[#D4A017] mb-4 w-8 h-8" />
+      <div className="font-serif font-black text-5xl leading-none grad-text mb-3">
+        {count.toLocaleString()}{suffix}
+      </div>
+      <div className="text-[11.5px] uppercase tracking-widest font-bold" style={{ color: 'var(--tm)' }}>
+        {label}
+      </div>
     </div>
   )
 }
