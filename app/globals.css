@@ -5,8 +5,8 @@
 
 :root {
   --bg: #0A192F;
-  --bg2: #0D1F3C;
-  --bg3: #112240;
+  --bg2: #112240;
+  --bg3: #172A45;
   --teal: #0E7490;
   --teal2: #06B6D4;
   --teal3: #22D3EE;
@@ -14,11 +14,11 @@
   --gold: #D4A017;
   --white: #FFFFFF;
   --ts: #CBD5E1;
-  --tm: #8892A4;
+  --tm: #94A3B8;
   --bdr: #1E3A5F;
   --bdr2: #0E4D5F;
   --grad: linear-gradient(135deg, #0E7490, #1565C0);
-  --grad2: linear-gradient(135deg, #22D3EE, #0E7490, #1565C0);
+  --grad2: linear-gradient(135deg, #D4A017, #06B6D4, #1565C0);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,15 +48,37 @@ body { font-family: "Inter", sans-serif; background: var(--bg); color: var(--whi
 
 /* CARD HOVER */
 .card-hover {
-  position: relative; overflow: hidden; transition: all .35s;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem !important; /* rounded-2xl */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .card-hover::before {
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--grad); transform: scaleX(0); transition: transform .35s;
+  background: var(--gold); transform: scaleX(0); transition: transform 0.3s ease;
   transform-origin: left; border-radius: 3px 3px 0 0;
 }
 .card-hover:hover::before { transform: scaleX(1); }
-.card-hover:hover { border-color: rgba(14,116,144,.4) !important; transform: translateY(-5px); box-shadow: 0 24px 64px rgba(0,0,0,.4); }
+.card-hover:hover {
+  border-color: var(--gold) !important;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -15px rgba(212, 160, 23, 0.15), 0 0 30px rgba(6, 182, 212, 0.05);
+}
+
+/* GLASS CARD */
+.glass-card {
+  background: rgba(17, 34, 64, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(30, 58, 95, 0.8);
+  border-radius: 1rem; /* rounded-2xl */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold) !important;
+  box-shadow: 0 20px 40px -15px rgba(212, 160, 23, 0.2);
+}
 
 /* FORMS */
 .form-input {

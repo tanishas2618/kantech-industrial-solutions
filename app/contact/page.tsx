@@ -1,6 +1,16 @@
 'use client'
 import { useState } from 'react'
-import { Phone, Mail, MapPin, CheckCircle } from 'lucide-react'
+import {
+  Phone,
+  Mail,
+  MapPin,
+  CheckCircle,
+  Facebook,
+  Linkedin,
+  MessageCircle,
+  Send,
+  Loader2
+} from 'lucide-react'
 
 export default function Contact() {
   const [form, setForm] = useState({ name:'', email:'', phone:'', message:'' })
@@ -31,11 +41,11 @@ export default function Contact() {
           <div className="flex flex-col gap-5">
             {/* contact items */}
             {[
-              { ico:<Phone size={20} style={{color:'var(--teal3)'}}/>, lbl:'Mobile & Office', val:<><a href="tel:9789680187" className="block hover:text-cyan-400 transition-colors">+91 97896 80187</a><a href="tel:9677333184" className="block hover:text-cyan-400 transition-colors">+91 96773 33184</a></> },
-              { ico:<Mail size={20} style={{color:'var(--teal3)'}}/>, lbl:'Email', val:<a href="mailto:premkkantech@yahoo.com" className="hover:text-cyan-400 transition-colors">premkkantech@yahoo.com</a> },
+              { ico:<Phone size={20} style={{color:'var(--teal3)'}}/>, lbl:'Mobile & Office', val:<><a href="tel:9789680187" className="block hover:text-[#D4A017] transition-colors">+91 97896 80187</a><a href="tel:9677333184" className="block hover:text-[#D4A017] transition-colors">+91 96773 33184</a></> },
+              { ico:<Mail size={20} style={{color:'var(--teal3)'}}/>, lbl:'Email', val:<a href="mailto:premkkantech@yahoo.com" className="hover:text-[#D4A017] transition-colors">premkkantech@yahoo.com</a> },
               { ico:<MapPin size={20} style={{color:'var(--teal3)'}}/>, lbl:'Office Address', val:<span className="leading-relaxed">#58/A, 18, 2nd Floor, K.P Complex,<br/>Near Agarwal Hospital,<br/>Bangalore Bye-Pass Road,<br/>Hosur – 635109</span> },
             ].map((c,i) => (
-              <div key={i} className="flex items-start gap-4 p-5 rounded-xl border transition-colors hover:border-teal-400" style={{background:'var(--bg2)',borderColor:'var(--bdr)'}}>
+              <div key={i} className="flex items-start gap-4 p-5 rounded-xl border transition-all duration-300 hover:border-[#D4A017] hover:shadow-[0_8px_20px_rgba(212,160,23,0.06)]" style={{background:'var(--bg2)',borderColor:'var(--bdr)'}}>
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 border" style={{background:'rgba(14,116,144,.12)',borderColor:'rgba(14,116,144,.2)'}}>{c.ico}</div>
                 <div>
                   <div className="text-[10.5px] uppercase tracking-[1.2px] mb-1" style={{color:'var(--tm)'}}>{c.lbl}</div>
@@ -47,19 +57,23 @@ export default function Contact() {
             {/* WhatsApp */}
             <a href="https://api.whatsapp.com/send?phone=919789680187&text=Hello%20KANTECH%20INDUSTRIAL%20SOLUTIONS"
               target="_blank" rel="noreferrer"
-              className="flex items-center justify-center gap-3 py-4 rounded-xl font-bold text-[14.5px] text-white transition-all hover:-translate-y-1"
+              className="flex items-center justify-center gap-3 py-4 rounded-xl font-bold text-[14.5px] text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(37,211,102,.4)]"
               style={{background:'#25D366',boxShadow:'0 4px 20px rgba(37,211,102,.3)'}}>
-              💬 &nbsp;Chat on WhatsApp · +91 97896 80187
+              <MessageCircle size={18} /> Chat on WhatsApp · +91 97896 80187
             </a>
 
             {/* Social */}
             <div className="flex gap-3">
               <a href="https://www.facebook.com/surendar.nair" target="_blank" rel="noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl border font-bold text-[13.5px] transition-all hover:border-teal-400 hover:text-cyan-300"
-                style={{background:'rgba(255,255,255,.04)',borderColor:'var(--bdr)',color:'var(--ts)'}}>📘 Facebook</a>
+                className="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl border font-bold text-[13.5px] transition-all duration-300 hover:border-[#D4A017] hover:text-[#D4A017] hover:shadow-[0_4px_12px_rgba(212,160,23,0.1)]"
+                style={{background:'rgba(255,255,255,.04)',borderColor:'var(--bdr)',color:'var(--ts)'}}>
+                <Facebook size={16} /> Facebook
+              </a>
               <a href="https://www.linkedin.com/company/kantech-industrial-solutions/" target="_blank" rel="noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl border font-bold text-[13.5px] transition-all hover:border-teal-400 hover:text-cyan-300"
-                style={{background:'rgba(255,255,255,.04)',borderColor:'var(--bdr)',color:'var(--ts)'}}>💼 LinkedIn</a>
+                className="flex-1 flex items-center justify-center gap-2 h-12 rounded-xl border font-bold text-[13.5px] transition-all duration-300 hover:border-[#D4A017] hover:text-[#D4A017] hover:shadow-[0_4px_12px_rgba(212,160,23,0.1)]"
+                style={{background:'rgba(255,255,255,.04)',borderColor:'var(--bdr)',color:'var(--ts)'}}>
+                <Linkedin size={16} /> LinkedIn
+              </a>
             </div>
 
             {/* Map */}
@@ -97,9 +111,17 @@ export default function Contact() {
                   <textarea placeholder="How can we help you?" value={form.message} onChange={e => set('message', e.target.value)} rows={5} className="form-input" style={{resize:'vertical'}}/>
                 </div>
                 <button type="submit" disabled={loading}
-                  className="w-full py-3.5 rounded-xl font-bold text-[15px] text-white transition-all hover:-translate-y-1 disabled:opacity-60"
-                  style={{background:'linear-gradient(135deg,#0E7490,#1565C0)'}}>
-                  {loading ? 'Sending...' : 'Send Message →'}
+                  className="w-full py-4 rounded-xl font-bold text-[15px] text-white transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 flex items-center justify-center gap-2"
+                  style={{background:'linear-gradient(135deg,#0E7490,#1565C0)',boxShadow:'0 6px 24px rgba(14,116,144,.35)'}}>
+                  {loading ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" /> Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} /> Send Message
+                    </>
+                  )}
                 </button>
               </form>
             )}

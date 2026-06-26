@@ -1,6 +1,15 @@
 'use client'
 import { useState } from 'react'
-import { Building2, CheckCircle } from 'lucide-react'
+import {
+  Building2,
+  CheckCircle,
+  Zap,
+  ShieldCheck,
+  Lock,
+  UserCheck,
+  Loader2,
+  Send
+} from 'lucide-react'
 
 const industries = [
   'Industrial Engineering & Manufacturing',
@@ -64,13 +73,21 @@ export default function Employers() {
 
         {/* WHY US STRIP */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          {[['⚡','7-Day Delivery','Candidate profiles in 7 working days'],['🔄','3-Month Support','Replacement support included'],['🔒','Confidential','All inquiries strictly confidential'],['✅','Quality Assured','Pre-screened candidates only']].map(([ico,t,d],i) => (
-            <div key={i} className="text-center p-5 rounded-xl border" style={{background:'var(--bg2)',borderColor:'var(--bdr)'}}>
-              <div className="text-2xl mb-2">{ico}</div>
-              <div className="font-bold text-[13.5px] mb-1">{t}</div>
-              <div className="text-[12px]" style={{color:'var(--tm)'}}>{d}</div>
-            </div>
-          ))}
+          {[
+            { ico: Zap, t: '7-Day Delivery', d: 'Candidate profiles in 7 working days' },
+            { ico: ShieldCheck, t: '3-Month Support', d: 'Replacement support included' },
+            { ico: Lock, t: 'Confidential', d: 'All inquiries strictly confidential' },
+            { ico: UserCheck, t: 'Quality Assured', d: 'Pre-screened candidates only' },
+          ].map((item, i) => {
+            const Icon = item.ico
+            return (
+              <div key={i} className="text-center p-6 rounded-xl border flex flex-col items-center justify-center transition-all duration-300 hover:border-[#D4A017] hover:shadow-[0_8px_20px_rgba(212,160,23,0.08)]" style={{background:'var(--bg2)',borderColor:'var(--bdr)'}}>
+                <Icon size={24} className="text-[#D4A017] mb-3" />
+                <div className="font-bold text-[13.5px] mb-1">{item.t}</div>
+                <div className="text-[12px]" style={{color:'var(--tm)'}}>{item.d}</div>
+              </div>
+            )
+          })}
         </div>
 
         <div className="max-w-[760px] mx-auto rounded-2xl border p-10" style={{ background: 'var(--bg2)', borderColor: 'var(--bdr)' }}>
@@ -118,9 +135,17 @@ export default function Employers() {
               </div>
               {error && <div className="mb-4 p-3 rounded-lg text-[13.5px]" style={{background:'rgba(248,113,113,.08)',border:'1px solid rgba(248,113,113,.2)',color:'#f87171'}}>{error}</div>}
               <button type="submit" disabled={loading}
-                className="w-full py-4 rounded-xl font-bold text-[15px] text-white transition-all hover:-translate-y-1 disabled:opacity-60"
+                className="w-full py-4 rounded-xl font-bold text-[15px] text-white transition-all duration-305 hover:-translate-y-0.5 disabled:opacity-60 flex items-center justify-center gap-2"
                 style={{background:'linear-gradient(135deg,#0E7490,#1565C0)',boxShadow:'0 6px 24px rgba(14,116,144,.35)'}}>
-                {loading ? '⏳  Submitting...' : '📤  Request Recruitment Support'}
+                {loading ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" /> Submitting...
+                  </>
+                ) : (
+                  <>
+                    <Send size={16} /> Request Recruitment Support
+                  </>
+                )}
               </button>
             </form>
           )}

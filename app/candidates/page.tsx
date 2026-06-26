@@ -1,6 +1,13 @@
 'use client'
 import { useState, useRef } from 'react'
-import { FileText, CheckCircle } from 'lucide-react'
+import {
+  FileText,
+  CheckCircle,
+  AlertCircle,
+  Paperclip,
+  Loader2,
+  Send
+} from 'lucide-react'
 
 const qualifications = ['10th / SSLC','12th / HSC','Diploma / ITI','B.E. / B.Tech','B.Sc','BCA / BBA / B.Com','MBA / PGDM','M.E. / M.Tech','M.Sc / MCA','B.Pharm / M.Pharm','Ph.D','Other']
 
@@ -62,8 +69,8 @@ export default function Candidates() {
 
         <div className="max-w-[760px] mx-auto">
           {/* NOTICE */}
-          <div className="flex gap-3 items-start p-5 rounded-xl mb-8" style={{background:'rgba(212,160,23,.07)',border:'1px solid rgba(212,160,23,.25)'}}>
-            <span className="text-2xl flex-shrink-0">📢</span>
+          <div className="flex gap-3 items-start p-5 rounded-xl mb-8 border" style={{background:'rgba(212,160,23,.07)',borderColor:'rgba(212,160,23,.25)'}}>
+            <AlertCircle size={22} className="text-[#D4A017] flex-shrink-0 mt-0.5" />
             <p className="text-[13.5px] leading-relaxed" style={{color:'var(--ts)'}}>
               Please upload your resume through the form below and also send a copy to{' '}
               <a href="mailto:premkkantech@yahoo.com" className="font-bold hover:underline" style={{color:'var(--gold)'}}>premkkantech@yahoo.com</a>{' '}
@@ -126,9 +133,12 @@ export default function Candidates() {
                     onDragOver={e => { e.preventDefault(); setDrag(true) }}
                     onDragLeave={() => setDrag(false)}
                     onDrop={e => { e.preventDefault(); setDrag(false); handleFile(e.dataTransfer.files[0]) }}>
-                    <div className="text-4xl mb-2">📎</div>
+                    <Paperclip size={32} className="mx-auto mb-2 text-[#D4A017]" />
                     {file ? (
-                      <div className="font-semibold" style={{color:'var(--teal3)'}}>✅ &nbsp;{file.name}</div>
+                      <div className="font-semibold flex items-center justify-center gap-1.5" style={{color:'var(--teal3)'}}>
+                        <CheckCircle size={16} className="text-[#4ade80]" />
+                        {file.name}
+                      </div>
                     ) : (
                       <>
                         <div className="font-medium mb-1" style={{color:'var(--ts)'}}>Click to upload or drag & drop your resume</div>
@@ -141,9 +151,17 @@ export default function Candidates() {
 
                 {error && <div className="mb-4 p-3 rounded-lg text-[13.5px]" style={{background:'rgba(248,113,113,.08)',border:'1px solid rgba(248,113,113,.2)',color:'#f87171'}}>{error}</div>}
                 <button type="submit" disabled={loading}
-                  className="w-full py-4 rounded-xl font-bold text-[15px] text-white transition-all hover:-translate-y-1 disabled:opacity-60"
+                  className="w-full py-4 rounded-xl font-bold text-[15px] text-white transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 flex items-center justify-center gap-2"
                   style={{background:'linear-gradient(135deg,#0E7490,#1565C0)',boxShadow:'0 6px 24px rgba(14,116,144,.35)'}}>
-                  {loading ? '⏳  Submitting...' : '🚀  Submit My Profile'}
+                  {loading ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" /> Submitting...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} /> Submit My Profile
+                    </>
+                  )}
                 </button>
               </form>
             )}

@@ -1,7 +1,21 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
-import { LogOut, Search, Download, RefreshCw, X } from 'lucide-react'
+import {
+  LogOut,
+  Search,
+  Download,
+  RefreshCw,
+  X,
+  BarChart2,
+  Building2,
+  Users,
+  Award,
+  Target,
+  Lock,
+  Loader2,
+  ArrowLeft
+} from 'lucide-react'
 
 type Employer = { _id: string; name: string; company: string; email: string; phone: string; industry: string; requirements: string; status: string; createdAt: string }
 type Candidate = { _id: string; name: string; email: string; phone: string; qualification: string; experience: string; skills: string; resumeFileName: string; status: string; createdAt: string }
@@ -118,9 +132,17 @@ export default function AdminPage() {
           ))}
           {loginErr && <div className="p-3 rounded-lg text-[13px]" style={{background:'rgba(248,113,113,.08)',border:'1px solid rgba(248,113,113,.2)',color:'#f87171'}}>{loginErr}</div>}
           <button type="submit" disabled={loginLoading}
-            className="py-3.5 rounded-xl font-bold text-[15px] text-white transition-all hover:-translate-y-1 disabled:opacity-60"
+            className="py-3.5 rounded-xl font-bold text-[15px] text-white transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 flex items-center justify-center gap-2"
             style={{background:'linear-gradient(135deg,#0E7490,#1565C0)'}}>
-            {loginLoading ? '⏳ Logging in...' : '🔐  Login to Dashboard'}
+            {loginLoading ? (
+              <>
+                <Loader2 size={16} className="animate-spin" /> Logging in...
+              </>
+            ) : (
+              <>
+                <Lock size={16} /> Login to Dashboard
+              </>
+            )}
           </button>
           <div className="text-center text-[12px]" style={{color:'var(--tm)'}}>Default: admin / kantech2024</div>
         </form>
@@ -129,11 +151,11 @@ export default function AdminPage() {
   )
 
   // ── DASHBOARD ──
-  const navItems: { id: typeof tab; label: string; ico: string }[] = [
-    { id:'overview',  label:'Overview',            ico:'📊' },
-    { id:'employers', label:'Employer Inquiries',  ico:'🏢' },
-    { id:'candidates',label:'Candidate Profiles',  ico:'👤' },
-  ]
+  const navItems = [
+    { id:'overview',  label:'Overview',            icon: BarChart2 },
+    { id:'employers', label:'Employer Inquiries',  icon: Building2 },
+    { id:'candidates',label:'Candidate Profiles',  icon: Users },
+  ] as const;
 
   return (
     <div className="min-h-screen flex" style={{background:'var(--bg)'}}>
@@ -147,17 +169,23 @@ export default function AdminPage() {
           </div>
         </div>
         <nav className="flex-1 p-3">
-          {navItems.map(n => (
-            <button key={n.id} onClick={() => setTab(n.id)}
-              className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-[13.5px] mb-1 text-left transition-all duration-200 border-none bg-transparent cursor-pointer font-medium
-                ${tab===n.id ? 'text-cyan-300' : 'text-slate-400 hover:text-white'}`}
-              style={tab===n.id ? {background:'rgba(14,116,144,.12)'} : {}}>
-              {n.ico} &nbsp;{n.label}
-            </button>
-          ))}
+          {navItems.map(n => {
+            const Icon = n.icon
+            return (
+              <button key={n.id} onClick={() => setTab(n.id)}
+                className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13.5px] mb-1 text-left transition-all duration-200 border-none bg-transparent cursor-pointer font-semibold
+                  ${tab===n.id ? 'text-cyan-300' : 'text-slate-400 hover:text-white'}`}
+                style={tab===n.id ? {background:'rgba(14,116,144,.12)'} : {}}>
+                <Icon size={16} />
+                <span>{n.label}</span>
+              </button>
+            )
+          })}
         </nav>
         <div className="p-3 border-t" style={{borderColor:'var(--bdr)'}}>
-          <a href="/" className="flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-slate-400 hover:text-white transition-colors mb-1 no-underline cursor-pointer">← Back to Website</a>
+          <a href="/" className="flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-slate-400 hover:text-white transition-colors mb-1 no-underline cursor-pointer">
+            <ArrowLeft size={14} /> Back to Website
+          </a>
           <button onClick={logout} className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-slate-400 hover:text-red-400 transition-colors bg-transparent border-none cursor-pointer">
             <LogOut size={14}/> Logout
           </button>
@@ -172,13 +200,23 @@ export default function AdminPage() {
           <div>
             <h2 className="text-[1.5rem] font-black mb-6">Dashboard Overview</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              {[['🏢',String(empTotal),'Employer Inquiries'],['👤',String(candTotal),'Candidate Profiles'],['🏆','500+','Total Clients'],['🎯','5000+','Total Placements']].map(([ico,val,lbl],i) => (
-                <div key={i} className="p-5 rounded-xl border" style={{background:'var(--bg2)',borderColor:'var(--bdr)'}}>
-                  <div className="text-2xl mb-2">{ico}</div>
-                  <div className="text-[2rem] font-black grad-text mb-1">{val}</div>
-                  <div className="text-[12px] uppercase tracking-wider" style={{color:'var(--tm)'}}>{lbl}</div>
-                </div>
-              ))}
+              {[
+                { icon: Building2, val: String(empTotal), lbl: 'Employer Inquiries' },
+                { icon: Users, val: String(candTotal), lbl: 'Candidate Profiles' },
+                { icon: Award, val: '500+', lbl: 'Total Clients' },
+                { icon: Target, val: '5000+', lbl: 'Total Placements' },
+              ].map((item, i) => {
+                const Icon = item.icon
+                return (
+                  <div key={i} className="p-6 rounded-xl border flex flex-col justify-between" style={{background:'var(--bg2)',borderColor:'var(--bdr)'}}>
+                    <Icon size={24} className="text-[#D4A017] mb-3" />
+                    <div>
+                      <div className="text-[2rem] font-black grad-text mb-1 leading-none">{item.val}</div>
+                      <div className="text-[12px] uppercase tracking-wider font-semibold" style={{color:'var(--tm)'}}>{item.lbl}</div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
             <div className="rounded-xl border p-5" style={{background:'var(--bg2)',borderColor:'var(--bdr)'}}>
               <div className="font-bold mb-2">Getting Started</div>
@@ -202,7 +240,7 @@ export default function AdminPage() {
                   <option value="">All Status</option>
                   {['new','reviewed','contacted','closed'].map(s=><option key={s}>{s}</option>)}
                 </select>
-                <button onClick={fetchEmployers} className="flex items-center gap-2 px-3 py-2 rounded-lg border text-[13px] transition-all hover:border-teal-400" style={{background:'rgba(255,255,255,.04)',borderColor:'var(--bdr)',color:'var(--ts)'}}>
+                <button onClick={fetchEmployers} className="flex items-center gap-2 px-3 py-2 rounded-lg border text-[13px] transition-all hover:border-teal-400 bg-transparent cursor-pointer" style={{borderColor:'var(--bdr)',color:'var(--ts)'}}>
                   <RefreshCw size={13}/> Refresh
                 </button>
               </div>
@@ -256,7 +294,7 @@ export default function AdminPage() {
                   <option value="">All Status</option>
                   {['new','shortlisted','placed','rejected'].map(s=><option key={s}>{s}</option>)}
                 </select>
-                <button onClick={fetchCandidates} className="flex items-center gap-2 px-3 py-2 rounded-lg border text-[13px] transition-all hover:border-teal-400" style={{background:'rgba(255,255,255,.04)',borderColor:'var(--bdr)',color:'var(--ts)'}}>
+                <button onClick={fetchCandidates} className="flex items-center gap-2 px-3 py-2 rounded-lg border text-[13px] transition-all hover:border-teal-400 bg-transparent cursor-pointer" style={{borderColor:'var(--bdr)',color:'var(--ts)'}}>
                   <RefreshCw size={13}/> Refresh
                 </button>
               </div>

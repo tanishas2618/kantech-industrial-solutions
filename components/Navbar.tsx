@@ -57,24 +57,24 @@ export default function Navbar() {
               {label}
               <span className={`absolute bottom-[4px] left-[13px] right-[13px] h-[2px] rounded-full transition-transform duration-300 origin-left
                 ${pathname === href ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
-                style={{ background: 'linear-gradient(135deg,#0E7490,#1565C0)' }} />
+                style={{ background: 'var(--gold)' }} />
             </Link>
           ))}
           <div className="flex items-center gap-2 ml-2">
             <a href="https://www.facebook.com/surendar.nair" target="_blank" rel="noreferrer"
-              className="w-8 h-8 flex items-center justify-center rounded border transition-all duration-200 hover:border-teal-400"
-              style={{ border:'1px solid #1E3A5F', background:'rgba(255,255,255,0.04)' }}>
-              <Facebook size={13} className="text-slate-400" />
+              className="w-8 h-8 flex items-center justify-center rounded border transition-all duration-200 hover:border-[#D4A017] hover:shadow-[0_0_8px_rgba(212,160,23,0.2)]"
+              style={{ border:'1px solid var(--bdr)', background:'rgba(255,255,255,0.04)' }}>
+              <Facebook size={13} className="text-slate-400 hover:text-[#D4A017] transition-colors" />
             </a>
             <a href="https://www.linkedin.com/company/kantech-industrial-solutions/" target="_blank" rel="noreferrer"
-              className="w-8 h-8 flex items-center justify-center rounded border transition-all duration-200 hover:border-teal-400"
-              style={{ border:'1px solid #1E3A5F', background:'rgba(255,255,255,0.04)' }}>
-              <Linkedin size={13} className="text-slate-400" />
+              className="w-8 h-8 flex items-center justify-center rounded border transition-all duration-200 hover:border-[#D4A017] hover:shadow-[0_0_8px_rgba(212,160,23,0.2)]"
+              style={{ border:'1px solid var(--bdr)', background:'rgba(255,255,255,0.04)' }}>
+              <Linkedin size={13} className="text-slate-400 hover:text-[#D4A017] transition-colors" />
             </a>
           </div>
           <Link href="/admin"
-            className="ml-2 px-5 py-[9px] rounded-[7px] text-white text-[13px] font-bold transition-all duration-200 hover:-translate-y-px"
-            style={{ background:'linear-gradient(135deg,#0E7490,#1565C0)', boxShadow:'0 4px 14px rgba(14,116,144,0.3)' }}>
+            className="ml-2 px-5 py-[9px] rounded-[7px] text-white text-[13px] font-bold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(212,160,23,0.3)]"
+            style={{ background:'linear-gradient(135deg,#0E7490,#1565C0)', border:'1px solid rgba(255,255,255,0.1)' }}>
             Admin ↗
           </Link>
         </div>

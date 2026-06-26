@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, Mail, MapPin } from 'lucide-react'
+import { Phone, Mail, MapPin, Facebook, Linkedin, MessageCircle } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -23,15 +23,15 @@ export default function Footer() {
             </p>
             <div className="flex gap-2">
               {[
-                { href:'https://www.facebook.com/surendar.nair', label:'📘' },
-                { href:'https://www.linkedin.com/company/kantech-industrial-solutions/', label:'💼' },
-                { href:'https://api.whatsapp.com/send?phone=919789680187', label:'💬' },
-                { href:'mailto:premkkantech@yahoo.com', label:'✉️' },
+                { href:'https://www.facebook.com/surendar.nair', icon:<Facebook size={16} /> },
+                { href:'https://www.linkedin.com/company/kantech-industrial-solutions/', icon:<Linkedin size={16} /> },
+                { href:'https://api.whatsapp.com/send?phone=919789680187', icon:<MessageCircle size={16} /> },
+                { href:'mailto:premkkantech@yahoo.com', icon:<Mail size={16} /> },
               ].map((s,i) => (
                 <a key={i} href={s.href} target="_blank" rel="noreferrer"
-                  className="w-9 h-9 flex items-center justify-center rounded-lg border text-base transition-all duration-200 hover:border-teal-400"
-                  style={{background:'rgba(255,255,255,0.04)',borderColor:'var(--bdr)'}}>
-                  {s.label}
+                  className="w-9 h-9 flex items-center justify-center rounded-lg border transition-all duration-300 hover:border-[#D4A017] hover:text-[#D4A017] hover:shadow-[0_0_10px_rgba(212,160,23,0.2)]"
+                  style={{background:'rgba(255,255,255,0.04)',borderColor:'var(--bdr)',color:'var(--tm)'}}>
+                  {s.icon}
                 </a>
               ))}
             </div>
@@ -44,7 +44,7 @@ export default function Footer() {
               {[['/',  'Home'],[ '/about','About Us'],['/services','Services'],['/industries','Industries'],
                 ['/employers','For Employers'],['/candidates','For Candidates'],['/contact','Contact']
               ].map(([href,label]) => (
-                <li key={href}><Link href={href} className="text-[13.5px] hover:text-cyan-400 transition-colors" style={{color:'var(--tm)'}}>{label}</Link></li>
+                <li key={href}><Link href={href} className="text-[13.5px] hover:text-[#D4A017] transition-colors" style={{color:'var(--tm)'}}>{label}</Link></li>
               ))}
             </ul>
           </div>
@@ -54,7 +54,7 @@ export default function Footer() {
             <h4 className="text-white font-bold text-[12px] uppercase tracking-[1.5px] mb-4">Our Services</h4>
             <ul className="flex flex-col gap-2">
               {['Executive Search','Permanent Placement','Staffing Solutions','Talent Acquisition','Leadership Hiring','Workforce Planning','Career Placement'].map(s => (
-                <li key={s}><Link href="/services" className="text-[13.5px] hover:text-cyan-400 transition-colors" style={{color:'var(--tm)'}}>{s}</Link></li>
+                <li key={s}><Link href="/services" className="text-[13.5px] hover:text-[#D4A017] transition-colors" style={{color:'var(--tm)'}}>{s}</Link></li>
               ))}
             </ul>
           </div>
@@ -66,13 +66,13 @@ export default function Footer() {
               <li className="flex items-start gap-2">
                 <Phone size={14} className="mt-0.5 flex-shrink-0" style={{color:'var(--teal3)'}} />
                 <div>
-                  <a href="tel:9789680187" className="block text-[13.5px] hover:text-cyan-400 transition-colors" style={{color:'var(--tm)'}}>+91 97896 80187</a>
-                  <a href="tel:9677333184" className="block text-[13.5px] hover:text-cyan-400 transition-colors" style={{color:'var(--tm)'}}>+91 96773 33184</a>
+                  <a href="tel:9789680187" className="block text-[13.5px] hover:text-[#D4A017] transition-colors" style={{color:'var(--tm)'}}>+91 97896 80187</a>
+                  <a href="tel:9677333184" className="block text-[13.5px] hover:text-[#D4A017] transition-colors" style={{color:'var(--tm)'}}>+91 96773 33184</a>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <Mail size={14} className="mt-0.5 flex-shrink-0" style={{color:'var(--teal3)'}} />
-                <a href="mailto:premkkantech@yahoo.com" className="text-[13.5px] hover:text-cyan-400 transition-colors break-all" style={{color:'var(--tm)'}}>premkkantech@yahoo.com</a>
+                <a href="mailto:premkkantech@yahoo.com" className="text-[13.5px] hover:text-[#D4A017] transition-colors break-all" style={{color:'var(--tm)'}}>premkkantech@yahoo.com</a>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin size={14} className="mt-0.5 flex-shrink-0" style={{color:'var(--teal3)'}} />
